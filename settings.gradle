@@ -1,0 +1,4 @@
+rootProject.name = 'Evidence of Crater'
+include 'launcher'
+include 'modular'
+
