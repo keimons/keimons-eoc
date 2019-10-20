@@ -6,6 +6,7 @@ import org.redisson.client.codec.StringCodec;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 玩家管理
@@ -31,11 +32,13 @@ public class PlayerManager {
 		return players.get(playerId);
 	}
 
+	public static AtomicLong playerId = new AtomicLong();
+
 	/**
 	 * 注册用户
 	 */
 	public static Player registerPlayer(String name) {
-		long playerId = createPlayerId("", name);
+		long playerId = PlayerManager.playerId.incrementAndGet(); // createPlayerId("", name);
 		if (playerId == -1) {
 			return null;
 		}

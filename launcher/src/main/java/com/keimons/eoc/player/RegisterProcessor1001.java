@@ -1,4 +1,4 @@
-package com.keimons.eoc.modular.player;
+package com.keimons.eoc.player;
 
 import com.keimons.eoc.launcher.EocBaseProcessor;
 import com.keimons.eoc.launcher.Player;

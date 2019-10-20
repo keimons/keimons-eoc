@@ -1,8 +1,7 @@
 package com.keimons.eoc.launcher;
 
 import com.google.protobuf.Message;
-import com.keimons.platform.network.Packet;
-import com.keimons.platform.process.BaseProcessor;
+import com.keimons.eoc.protobuf.PbPacket;
 import com.keimons.platform.session.Session;
 
 /**
@@ -15,22 +14,22 @@ import com.keimons.platform.session.Session;
 public class EocBaseProcessor<T extends Message> extends BaseProcessor<T, Player> {
 
 	@Override
-	public Packet process(Session session) {
+	public PbPacket.Packet.Builder process(Session session) {
 		return null;
 	}
 
 	@Override
-	public Packet process(Session session, T t) {
+	public PbPacket.Packet.Builder process(Session session, T t) {
 		return null;
 	}
 
 	@Override
-	public Packet process(Player player) {
+	public PbPacket.Packet.Builder process(Player player) {
 		return null;
 	}
 
 	@Override
-	public Packet process(Player player, T t) {
+	public PbPacket.Packet.Builder process(Player player, T t) {
 		return null;
 	}
 }

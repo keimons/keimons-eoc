@@ -1,6 +1,8 @@
 package com.keimons.eoc.launcher;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
+import com.keimons.eoc.protobuf.PbPacket;
 import com.keimons.platform.iface.IPlayerData;
 import com.keimons.platform.module.Modules;
 import com.keimons.platform.player.IPlayer;
@@ -55,7 +57,7 @@ public class Player implements IPlayer {
 	 * @param errCodes 错误号
 	 */
 	public void send(int msgCode, String... errCodes) {
-		send(msgCode, (byte[]) null, errCodes);
+		send(msgCode, (ByteString) null, errCodes);
 	}
 
 	/**
@@ -66,7 +68,7 @@ public class Player implements IPlayer {
 	 * @param errCodes 错误号
 	 */
 	public void send(int msgCode, MessageLite msg, String... errCodes) {
-		send(msgCode, msg == null ? null : msg.toByteArray(), errCodes);
+		send(msgCode, msg == null ? null : msg.toByteString(), errCodes);
 	}
 
 	/**
@@ -76,9 +78,16 @@ public class Player implements IPlayer {
 	 * @param data     数据体
 	 * @param errCodes 错误号
 	 */
-	public void send(int msgCode, byte[] data, String... errCodes) {
+	public void send(int msgCode, ByteString data, String... errCodes) {
 		if (session != null) {
-			session.send(msgCode, data, errCodes);
+			PbPacket.Packet.Builder builder = PbPacket.Packet.newBuilder().setMsgCode(msgCode);
+			if (data != null) {
+				builder.setData(data);
+			}
+			for (String errCode : errCodes) {
+				builder.addErrCode(errCode);
+			}
+			session.send(builder.build());
 		}
 	}
 
